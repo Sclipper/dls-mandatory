@@ -6,10 +6,23 @@ import 'dotenv/config'
 
 const app = express()
 mongoose.connect(`mongodb+srv://root:${process.env.MONGO_PASS}/${process.env.CLUSTER_NAME}?retryWrites=true&w=majority`)
+const { auth, requiresAuth } = require('express-openid-connect')
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(express.json())
+
+app.use(
+  auth({
+    authRequired: false,
+    auth0Logout: true,
+    issuerBaseURL: process.env.ISSUER_BASE_URL,
+    baseURL: process.env.BASE_URL,
+    clientID: process.env.CLIENT_ID,
+    secret: process.env.SECRET,
+    idpLogout: true,
+  }),
+)
 
 /**
  * We can use MVC paradigm (no Views here so just MC).
@@ -18,6 +31,7 @@ app.use(express.json())
  * You can see an example bellow we call the generate controller with the extension /generate
  * and if you go to that controller you then can call a function of that
  */
-app.use('/generate', GenerateController)
 
-app.listen(8080, () => console.log('Example app listening on port 8080!'))
+app.use('/', GenerateController)
+
+app.listen(process.env.PORT, () => console.log(`App listening on port ${process.env.PORT}!`))

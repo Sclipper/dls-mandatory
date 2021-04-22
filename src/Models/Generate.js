@@ -1,4 +1,5 @@
 import 'dotenv/config'
+import { requiresAuth } from 'express-openid-connect'
 
 /**
  * Usually i use functional approach of programming, but in MVC the models are usually
@@ -6,14 +7,8 @@ import 'dotenv/config'
  */
 
 class Generate {
-  async randomFunction () {
-    try {
-      console.log('do come model stuff')
-      return 'test'
-    } catch (err) {
-      console.log('err', err)
-      return err
-    }
+  async authenticationCheck (req, res) {
+    res.send(req.oidc.isAuthenticated() ? JSON.stringify(req.oidc.user) : 'Logged out')
   }
 }
 

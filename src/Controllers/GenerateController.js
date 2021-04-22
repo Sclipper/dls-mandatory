@@ -1,4 +1,5 @@
 import { Router } from 'express'
+import Generate from '../Models/Generate'
 
 const GenerateController = Router()
 
@@ -6,9 +7,9 @@ const GenerateController = Router()
  * Just add each function related to the generation bellow
  */
 
-GenerateController.get('/simple_code', async (req, res) => {
+GenerateController.get('/', async (req, res) => {
   try {
-    console.log('generate stuff here')
+    Generate.authenticationCheck(req, res)
   } catch (err) {
     console.log('Error')
   }

@@ -7,15 +7,19 @@
     "start": "nodemon --exec babel-node index.js"
   },
   "dependencies": {
-    "express": "^4.17.1",
     "axios": "^0.21.0",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "eslint": "^7.12.0",
+    "express": "^4.17.1",
+    "express-openid-connect": "^2.3.1",
+    "express-session": "^1.17.1",
     "moment": "^2.29.1",
     "mongodb": "^3.6.3",
-    "mongoose": "^5.11.7"
+    "mongoose": "^5.11.7",
+    "passport": "^0.4.1",
+    "passport-auth0": "^1.4.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.3",
