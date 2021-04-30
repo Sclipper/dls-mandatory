@@ -5,7 +5,9 @@ import GenerateController from './src/Controllers/GenerateController'
 import 'dotenv/config'
 
 const app = express()
-mongoose.connect(`${process.env.MONGO_DB_CONNECT}`, { useNewUrlParser: true, useUnifiedTopology: true })
+console.log('db', process.env.MONGO_DB_CONNECT)
+// mongoose.connect(`${process.env.MONGO_DB_CONNECT}`, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect('mongodb+srv://admin:admin1234@attendance.5bii5.mongodb.net/attendance?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true })
 // const { auth, requiresAuth } = require('express-openid-connect')
 
 app.use(bodyParser.json())
