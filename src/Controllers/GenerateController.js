@@ -10,7 +10,7 @@ const GenerateController = Router()
 
 GenerateController.get('/', async (req, res) => {
   try {
-    // Generate.authenticationCheck(req, res)
+    Generate.authenticationCheck(req, res)
   } catch (err) {
     console.log('Error')
   }
