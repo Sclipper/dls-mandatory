@@ -31,10 +31,11 @@ GenerateController.post('/attendance', async (req, res) => {
     // eslint-disable-next-line no-underscore-dangle
     const id = userCode[0]._id
     if (userCode) {
-      Code.updateOne(
+      const code = await Code.updateOne(
         { _id: id },
         { $push: { students: { email, present: true } } },
       )
+      console.log('code', code)
     }
     res.send('Attendance counted')
   } catch (err) {
