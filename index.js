@@ -5,15 +5,17 @@ import AttendanceController from './src/Controllers/AttendanceController'
 import UserController from './src/Controllers/UserController'
 import SubjectController from './src/Controllers/SubjectController'
 import 'dotenv/config'
+import AuthControler from './src/Controllers/AuthControler'
 
 const app = express()
-mongoose.connect(`${process.env.MONGO_DB_CONNECT}`, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(`${process.env.MONGO_DB_CONNECT}`, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(express.json())
 
 app.use('/attendance', AttendanceController)
+app.use('/auth', AuthControler)
 app.use('/users', UserController)
 app.use('/subjects', SubjectController)
 

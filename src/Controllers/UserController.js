@@ -6,7 +6,7 @@ const UserController = Router()
 UserController.post('/add', async (req, res) => {
   try {
     const { firstName, lastName, email, role } = req.body
-    const createdUser = await userModel.createUser(firstName, lastName, email, role)
+    const createdUser = await userModel.createUser({ firstName, lastName, email, role })
     res.send(createdUser)
   } catch (err) {
     console.log('Error', err)

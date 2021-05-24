@@ -12,6 +12,8 @@ const userSchema = mongoose.Schema({
     unique: true,
     validate: value => validator.isEmail(value),
   },
+  refresh_token: { type: String, required: true },
+  password: { type: String, required: true },
   role: { type: String, required: true, enum: ['admin', 'student', 'teacher'] },
 }, { timestamps: true })
 
