@@ -48,8 +48,6 @@ AuthControler.post('/login', async (req, res) => {
   } = req?.body
   try {
     const users = await findUser({ email })
-    console.log('user', users)
-
     if (!users?.length) {
       res.status(401)
       res.send('No user found')
