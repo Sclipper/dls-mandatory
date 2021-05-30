@@ -1,16 +1,18 @@
 import express from 'express'
 import bodyParser from 'body-parser'
 import mongoose from 'mongoose'
+import cors from 'cors'
 import AttendanceController from './src/Controllers/AttendanceController'
 import UserController from './src/Controllers/UserController'
 import SubjectController from './src/Controllers/SubjectController'
 import 'dotenv/config'
+
 import AuthControler from './src/Controllers/AuthControler'
 // import { authenticateToken } from './src/helpers'
 
 const app = express()
 mongoose.connect(`${process.env.MONGO_DB_CONNECT}`, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
-
+app.use(cors())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(express.json())
