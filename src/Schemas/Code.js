@@ -7,7 +7,7 @@ function addMinutes (date, minutes) {
 const codeSchema = mongoose.Schema({
   id: mongoose.Types.ObjectId,
   code: { type: String, unique: true },
-  expires_at: { type: Date, default: addMinutes(new Date(), 20) },
+  expires_at: { type: Date, default: addMinutes(new Date(), +20) },
   subject_id: mongoose.Types.ObjectId,
 }, { timestamps: true })
 

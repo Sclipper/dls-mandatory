@@ -1,6 +1,8 @@
 /* eslint-disable no-await-in-loop */
 import 'dotenv/config'
 import Subject from '../Schemas/Subject'
+import Attendance from '../Schemas/Attendance'
+import Code from '../Schemas/Code'
 
 class SubjectModel {
   async createSubject (name, expiresAt) {
@@ -82,6 +84,19 @@ class SubjectModel {
       { new: true },
     )
     return subject
+  }
+
+  async deleteOldSubjects () {
+    await Subject.deleteMany({ expires_at: { $lt: new Date() } })
+    const allSubjects = await Subject.find()
+    const subjectsToKeep = []
+    for (let i = 0; i < allSubjects.length; i += 1) {
+      // eslint-disable-next-line no-underscore-dangle
+      subjectsToKeep.push(allSubjects[i]._id)
+    }
+    await Attendance.deleteMany({ subject_id: { $nin: subjectsToKeep } })
+    await Code.deleteMany({ subject_id: { $nin: subjectsToKeep } })
+    return allSubjects
   }
 }
 

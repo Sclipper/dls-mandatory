@@ -56,4 +56,13 @@ SubjectController.delete('/delete/teacher', async (req, res) => {
   }
 })
 
+SubjectController.delete('/cleanup', async (req, res) => {
+  try {
+    const deletedSubjects = await subjectModel.deleteOldSubjects()
+    res.send(deletedSubjects)
+  } catch (err) {
+    console.log('Error', err)
+  }
+})
+
 export default SubjectController
