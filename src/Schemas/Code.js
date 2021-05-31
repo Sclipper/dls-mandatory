@@ -14,6 +14,8 @@ function addMinutes (date, minutes) {
 const codeSchema = mongoose.Schema({
   id: mongoose.Types.ObjectId,
   code: { type: String, unique: true, default: crypto.randomBytes(8).toString('hex') },
+  teacher: String,
+  classId: String,
   expires_at: { type: Date, default: addMinutes(new Date(), 20) },
   students: [
     {
