@@ -18,12 +18,15 @@ AttendanceController.post('/register', async (req, res) => {
   try {
     const { studentId, subjectId, code } = req.body
     const userCode = await Code.find({ code })
-
-    if (userCode[0].expires_at > new Date()) {
-      const attendance = await Attendance.registerAttendance(studentId, subjectId, userCode[0].code)
-      res.send(attendance)
+    if (userCode.length !== 0) {
+      if (userCode[0].expires_at > new Date()) {
+        const attendance = await Attendance.registerAttendance(studentId, subjectId, userCode[0].code)
+        res.send(attendance)
+      } else {
+        res.send({ error: 'Code is expired' })
+      }
     } else {
-      res.send({ error: 'Code is expired' })
+      res.send({ error: 'No code has been found' })
     }
   } catch (err) {
     console.log('Error', err)
