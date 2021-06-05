@@ -27,7 +27,7 @@ AttendanceController.post('/register', async (req, res) => {
       const attendance = await Attendance.registerAttendance(studentId, subjectId, userCode[0].code)
       res.send(attendance)
     } else {
-      res.send({ error: 'Code is expired' })
+      res.send({ error: 'No code has been found' })
     }
   } catch (err) {
     console.log('Error', err)
