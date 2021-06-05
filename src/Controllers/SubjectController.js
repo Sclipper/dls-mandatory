@@ -1,5 +1,6 @@
 import { Router } from 'express'
 import subjectModel from '../Models/SubjectModel'
+import Subject from '../Schemas/Subject'
 
 const SubjectController = Router()
 
@@ -8,6 +9,15 @@ SubjectController.post('/create', async (req, res) => {
     const { name, expiresAt } = req.body
     const createdSubject = await subjectModel.createSubject(name, expiresAt)
     res.send(createdSubject)
+  } catch (err) {
+    console.log('Error', err)
+  }
+})
+SubjectController.get('/', async (req, res) => {
+  try {
+    Subject.find({}, (err, subjects) => {
+      res.send(subjects)
+    })
   } catch (err) {
     console.log('Error', err)
   }

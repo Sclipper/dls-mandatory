@@ -12,27 +12,25 @@ class SubjectModel {
     return subject
   }
 
-  async addStudents (subjectId, stringStudentIds) {
-    const studentIds = stringStudentIds.replace(/\s/g, '').split(',')
-
+  async addStudents (subjectId, studentIds) {
     const results = {
       addedStudents: [],
       alreadyExistingStudents: [],
     }
 
-    for (let id = 0; id < studentIds.length; id += 1) {
+    studentIds.forEach(async id => {
       const query = await Subject.findOneAndUpdate(
-        { _id: subjectId, 'students_enrolled.id': { $ne: studentIds[id] } },
-        { $addToSet: { students_enrolled: { id: studentIds[id] } } },
+        { _id: subjectId, 'students_enrolled.id': { $ne: id } },
+        { $addToSet: { students_enrolled: { id } } },
         { new: true },
       )
-
+      console.log('query', query)
       if (query == null) {
-        results.alreadyExistingStudents.push(studentIds[id])
+        results.alreadyExistingStudents.push(studentIds)
       } if (query) {
-        results.addedStudents.push(studentIds[id])
+        results.addedStudents.push(studentIds)
       }
-    }
+    })
 
     return results
   }
