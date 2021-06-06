@@ -35,4 +35,13 @@ UserController.get('/subjects', async (req, res) => {
   }
 })
 
+UserController.get('/students', async (req, res) => {
+  try {
+    const allStudents = await userModel.getStudents()
+    res.send(allStudents)
+  } catch (err) {
+    console.log('Error', err)
+  }
+})
+
 export default UserController

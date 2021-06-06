@@ -26,6 +26,11 @@ class UserModel {
     const userSubjects = await Subject.find({ 'students_enrolled.id': id })
     return userSubjects
   }
+
+  async getStudents () {
+    const allStudents = await User.find({ role: 'student' })
+    return allStudents
+  }
 }
 
 export default new UserModel()
