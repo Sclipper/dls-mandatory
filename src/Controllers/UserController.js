@@ -44,4 +44,14 @@ UserController.get('/students', async (req, res) => {
   }
 })
 
+UserController.post('/data', async (req, res) => {
+  try {
+    const { email } = req.body
+    const userData = await userModel.getUserData(email)
+    res.send(userData)
+  } catch (err) {
+    console.log('Error', err)
+  }
+})
+
 export default UserController

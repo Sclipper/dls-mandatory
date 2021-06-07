@@ -23,6 +23,16 @@ SubjectController.get('/', async (req, res) => {
   }
 })
 
+SubjectController.post('/user', async (req, res) => {
+  try {
+    const { email } = req.body
+    const userSubjects = await subjectModel.getUserSubjects(email)
+    res.send(userSubjects)
+  } catch (err) {
+    console.log('Error', err)
+  }
+})
+
 SubjectController.post('/add/student', async (req, res) => {
   try {
     const { subjectId, studentIds } = req.body

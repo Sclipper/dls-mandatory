@@ -1,6 +1,5 @@
 import 'dotenv/config'
 import User from '../Schemas/User'
-import Subject from '../Schemas/Subject'
 import { hashPassword } from '../helpers'
 
 class UserModel {
@@ -17,14 +16,14 @@ class UserModel {
     return user
   }
 
+  async getUserData (email) {
+    const userData = await User.find(email)
+    return userData
+  }
+
   async deleteUsers (ids) {
     const user = await User.deleteMany({ _id: { $in: ids } })
     return user
-  }
-
-  async getUserSubjects (id) {
-    const userSubjects = await Subject.find({ 'students_enrolled.id': id })
-    return userSubjects
   }
 
   async getStudents () {

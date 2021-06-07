@@ -1,8 +1,10 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable no-await-in-loop */
 import 'dotenv/config'
 import Subject from '../Schemas/Subject'
 import Attendance from '../Schemas/Attendance'
 import Code from '../Schemas/Code'
+import userModel from './UserModel'
 
 class SubjectModel {
   async createSubject (name, expiresAt) {
@@ -12,6 +14,12 @@ class SubjectModel {
     })
     subject.save()
     return subject
+  }
+
+  async getUserSubjects (email) {
+    const user = await userModel.getUserData(email)
+    const userSubjects = await Subject.find({ $or: [{ 'students_enrolled.id': user[0]._id }, { 'responsible_teachers.id': user[0]._id }] })
+    return userSubjects
   }
 
   async addStudents (subjectId, studentIds) {
